@@ -1,0 +1,18 @@
+﻿
+@{
+
+}
+
+@model IEnumerable<string>
+@*grid*@
+<div class="d-grid">
+        <a asp-controller="Home" asp-action="Index" asp-route-Category="" asp-route-PageNum="1" class=" btn btn-outline-secondary">Home</a>
+        <br />
+
+        @foreach (string t in Model)
+        {
+            <a asp-controller="Home" asp-action="Index" asp-route-Category="@t" asp-route-PageNum="1" class=" btn @(ViewBag.SelectedTypes == t ? "btn-primary" : "btn-outline-secondary")">@t</a>
+            <br />
+        }
+</div>
+

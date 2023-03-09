@@ -38,6 +38,11 @@ namespace WaterProject
 
             services.AddScoped<IBookRepo, EFBooksRepo>();
 
+            services.AddRazorPages();
+
+            services.AddDistributedMemoryCache();
+            services.AddSession();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -49,12 +54,29 @@ namespace WaterProject
             }
             //wwroot stuff
             app.UseStaticFiles();
-
+            app.UseSession();
             app.UseRouting();
 
             app.UseEndpoints(endpoints =>
             {
+
+                endpoints.MapControllerRoute("CategoryPage", "{Category}/Page{pageNum}", new { Controller = "Home", action = "Index" });
+
+                endpoints.MapControllerRoute(
+                name: "Paging",
+                pattern: "Page{pageNum}",
+                defaults: new { Controller = "Home", action = "Index", pageNume = 1 }
+                );
+
+
+                endpoints.MapControllerRoute("Category", "{Category}", new { Controller = "Home", action = "Index" ,pageNume = 1});
+
+
+
+
                 endpoints.MapDefaultControllerRoute();
+
+                endpoints.MapRazorPages();
             });
         }
     }

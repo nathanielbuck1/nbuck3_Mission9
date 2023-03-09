@@ -8,25 +8,7 @@
 
 @foreach (Books b in Model.Books)
 {
-    //this will list out the info
-    <div class="card card-outline-primary m-1 p-1">
-        <div class="bg-faded p-1">
-            <h4>
-                @b.Title
-                <span class="badge badge-pill badge-primary" style="float:right">
-                    <small>Price:$ @b.Price</small>
-                </span>
-            </h4>
-
-            <div>Author: @b.Author</div>
-            <div>Publisher: @b.Publisher</div>
-            <div>ISBN: @b.Isbn</div>
-            <div>Classification: @b.Classification</div>
-            <div>Number of Pages: @b.PageCount</div>
-           
-            <div>Category: @b.Category</div>
-        </div>
-    </div>
+   <partial name="Summary" model="b" />
 
 
 

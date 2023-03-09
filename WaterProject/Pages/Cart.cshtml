@@ -1,0 +1,44 @@
+﻿@page
+@model WaterProject.Pages.CartModel
+@{
+}
+
+<h1>Your Cartttt</h1>
+
+<table class="table table-bordered table-striped">
+
+    @*colmns*@
+    <thead>
+        <tr>
+            <th>Item</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th>Total</th>
+        </tr>
+    </thead>
+
+    @*setting the info*@
+    <tbody>
+        @foreach(var i in Model.basket.Items)
+            {
+                <tr>
+                    <td>@i.book.Title</td>
+                    <td>@i.Quantity</td>
+                    <td>@i.book.Price.ToString("c")</td>   
+                    <td>@((i.Quantity * i.book.Price).ToString("c") )</td>
+                </tr>
+            }
+    </tbody>
+
+    @*grabbing a total*@
+    <tfoot>
+        <tr>
+            <td colspan="3">Total:</td>
+            <td>@Model.basket.CalculateTotal().ToString("c")</td>
+        </tr>
+    </tfoot>
+
+</table>
+
+@*send em back!*@
+<div><a class="=btn btn-primary" href="@Model.ReturnUrl">Contune Shoppinggg</a></div>
