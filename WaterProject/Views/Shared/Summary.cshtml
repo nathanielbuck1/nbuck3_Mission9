@@ -1,0 +1,38 @@
+﻿
+@{
+}
+
+@model Books 
+ 
+ @*this will list out the info*@
+<div class="card card-outline-primary m-1 p-1">
+    <div class="bg-faded p-1">
+        <h4>
+            @Model.Title
+            <span class="badge badge-pill badge-primary" style="float:right">
+                <small>Price:$ @Model.Price</small>
+            </span>
+        </h4>
+
+        <div>Author: @Model.Author</div>
+        <div>Publisher: @Model.Publisher</div>
+        <div>ISBN: @Model.Isbn</div>
+        <div>Classification: @Model.Classification</div>
+        <div>Number of Pages: @Model.PageCount</div>
+
+        <div>Category: @Model.Category</div>
+    </div>
+
+    <form method="post" asp-page="/Cart">
+
+        <input type="hidden" asp-for="@Model.BookId" />
+        <input type="hidden" name="returnUrl" value="@ViewContext.HttpContext.Request.PathAndQuery()"/>
+
+        <span class="card-text">
+            <button type="submit" class="btn btn-success btn-sm float-end">Check Out</button>
+        </span>
+
+    </form>
+
+</div>
+

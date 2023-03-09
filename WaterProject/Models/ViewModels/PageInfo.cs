@@ -8,7 +8,7 @@ namespace WaterProject.Models.ViewModels
     public class PageInfo
     {
 
-        //setting infor for paes
+        //setting info for pages
         public int TotalNumBooks { get; set; }
         public int BookPerPage { get; set; }
         public int CurrentPage { get; set;}
