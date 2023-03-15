@@ -14,6 +14,8 @@
             <th>Quantity</th>
             <th>Price</th>
             <th>Total</th>
+
+
         </tr>
     </thead>
 
@@ -21,12 +23,20 @@
     <tbody>
         @foreach(var i in Model.basket.Items)
             {
-                <tr>
-                    <td>@i.book.Title</td>
-                    <td>@i.Quantity</td>
-                    <td>@i.book.Price.ToString("c")</td>   
-                    <td>@((i.Quantity * i.book.Price).ToString("c") )</td>
-                </tr>
+        <tr>
+            <td>@i.book.Title</td>
+            <td>@i.Quantity</td>
+            <td>@i.book.Price.ToString("c")</td>
+            <td>@((i.Quantity * i.book.Price).ToString("c") )</td>
+
+            <td class="text-center">
+                <form method="post" asp-page-handler="Remove">
+                    <input type="hidden" name="bookId" value="@i.book.BookId" />
+                    <input type="hidden" name="returnUrl" value="@Model.ReturnUrl" />
+                    <button type="submit" class="btn btn-sm btn-danger">Remove</button>
+                </form>
+            </td>
+        </tr>
             }
     </tbody>
 
@@ -41,4 +51,7 @@
 </table>
 
 @*send em back!*@
-<div><a class="=btn btn-primary" href="@Model.ReturnUrl">Contune Shoppinggg</a></div>
+<div>
+    <a class="=btn btn-primary" href="@Model.ReturnUrl">Contune Shoppinggg</a>
+    <a class="=btn btn-primary" asp-action="Checkout" asp-controller="Donation">Checkouttttttt</a>
+</div>

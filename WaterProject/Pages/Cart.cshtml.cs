@@ -16,27 +16,36 @@ namespace WaterProject.Pages
         public Basket basket { get; set; }
         public string ReturnUrl { get; set; }
 
-        public CartModel (IBookRepo temp)
+        public CartModel (IBookRepo temp, Basket b)
         {
             repo = temp;
+            basket = b;
         }
         //get
         public void OnGet(string returnUrl)
         {
             ReturnUrl = returnUrl ?? "/";
-            basket = HttpContext.Session.GetJson<Basket>("basket") ?? new Basket();
+            //basket = HttpContext.Session.GetJson<Basket>("basket") ?? new Basket();
         }
         //post
         public IActionResult OnPost(int bookId, string returnUrl)
         {
             Books b = repo.Books.FirstOrDefault(x => x.BookId == bookId);
 
-            basket = HttpContext.Session.GetJson<Basket>("basket") ?? new Basket();
+           // basket = HttpContext.Session.GetJson<Basket>("basket") ?? new Basket();
             basket.AddItem(b, 1, b.Price);
 
-            HttpContext.Session.SetJson("basket", basket);
+            //HttpContext.Session.SetJson("basket", basket);
 
             return RedirectToPage(new { ReturnUrl = returnUrl });
         }
+
+        public IActionResult OnPostRemove(int bookId, string returnUrl)
+        {
+            basket.RemoveItem(basket.Items.First(x => x.book.BookId == bookId).book);
+
+            return RedirectToPage(new { ReturnUrl = returnUrl });
+        }
+
     }
 }

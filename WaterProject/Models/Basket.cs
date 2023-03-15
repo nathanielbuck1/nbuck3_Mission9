@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -9,7 +10,7 @@ namespace WaterProject.Models
     {
         public List<BasketLineItem> Items { get; set; } = new List<BasketLineItem>();
 
-        public void AddItem (Books book, int qty, double price)
+        public virtual void AddItem (Books book, int qty, double price)
         {
             //grab the info
             BasketLineItem line = Items
@@ -31,6 +32,16 @@ namespace WaterProject.Models
                 line.Quantity += qty;
             }
         }
+
+        public virtual void RemoveItem(Books book)
+        {
+            Items.RemoveAll(x => x.book.BookId == book.BookId);
+        }
+
+        public virtual void clearBasket()
+        {
+            Items.Clear();
+        }
         //calculate!
         public double CalculateTotal()
         {
@@ -43,6 +54,7 @@ namespace WaterProject.Models
     //setting the iteams to load and grab
     public class BasketLineItem
     {
+        [Key]
         public int LineID { get; set; }
         public Books book { get; set; } 
         public int Quantity { get; set; }
